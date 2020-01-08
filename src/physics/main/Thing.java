@@ -18,6 +18,7 @@ public abstract class Thing implements InteractionMain{
 	public boolean deletable;
 	
 	public boolean goal;
+	public boolean goalable;
 	
 	public Thing(String name) {
 		this.name = name;
@@ -30,6 +31,7 @@ public abstract class Thing implements InteractionMain{
 		this.gravitation = GRAVITATION;
 		this.deletable = false;
 		this.goal = false;
+		this.goalable = false;
 	}
 	
 	

@@ -41,8 +41,9 @@ public class MouseClickedInput implements MouseListener {
 				world.mouseThing.gravitation = InteractionMain.GRAVITATION;
 				Main.rotation = 0;
 				Main.active = false;
+				world.mouseThing=null; 
 			
-		} else if (Main.pause){
+		} else if (Main.pause&Main.editable){
 			Main.checkNumber = 10;
 			Main.check = true;
 		}

@@ -24,7 +24,6 @@ public class BallM extends Moveable implements Ball {
 
 	@Override
 	public void move(ArrayList<Thing> things) {
-		saveSpeed.y = saveSpeed.y + gravitation;
 		position.add(saveSpeed);
 
 		boolean hit = false;
@@ -33,15 +32,18 @@ public class BallM extends Moveable implements Ball {
 				if (obj instanceof Fusion) {
 					Thing[] elements = ((Fusion) obj).getAllThing();
 					for (Thing a : elements) {
-						doHit(a);
+						hit=doHit(a);
 					}
 				} else
 
-					doHit(obj);
+					hit=doHit(obj);
 
 			}
 		}
 
+		if(!hit)
+
+			saveSpeed.y = saveSpeed.y + gravitation;
 		saveSpeed.multiply(SPEEDLOOSE);
 	}
 

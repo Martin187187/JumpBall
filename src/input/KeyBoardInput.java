@@ -28,12 +28,16 @@ public class KeyBoardInput implements KeyListener {
 			Main.checkNumber = 1;
 			Main.check = true;
 		}
-		if (Main.pause)
+		if (Main.pause&Main.editable) 
 		if (arg0.getKeyChar() == 'd') {
 			Main.checkNumber = 2;
 			Main.check = true;
 		}
-		if (arg0.getKeyChar() == 'p') {
+		if (arg0.getKeyChar() == 'l') {
+			world.showLine = !world.showLine;
+			world.clearLine();
+		}
+		if (arg0.getKeyCode() == KeyEvent.VK_SPACE) {
 			Main.checkNumber = 101;
 			Main.check = true;
 		}

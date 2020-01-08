@@ -39,6 +39,7 @@ public class Level {
 		if (level == 0) {
 			ball = new BallM("Hero", new Vector2D(399, 300), new Vector2D(0, -4), 50, 100);
 			ball.visable = true;
+			ball.goalable = true;
 			floor0 = new PolygonT("floor",
 					new Polygon(new int[] { 0, 1980, 1980, 0 }, new int[] { 0, 0, 100, 100 }, 4));
 			floor1 = new PolygonT("floor",
@@ -71,6 +72,7 @@ public class Level {
 		} else if (level == 1) {
 			ball = new BallM("Hero", new Vector2D(399, 300), new Vector2D(0, -4), 50, 100);
 			ball.visable = true;
+			ball.goalable = true;
 			floor0 = new PolygonT("floor",
 					new Polygon(new int[] { 0, 1980, 1980, 0 }, new int[] { 0, 0, 100, 100 }, 4));
 			floor1 = new PolygonT("floor",
@@ -105,6 +107,7 @@ public class Level {
 		}else if (level == 2) {
 			ball = new BallM("Hero", new Vector2D(399, 300), new Vector2D(0, -4), 50, 100);
 			ball.visable = true;
+			ball.goalable = true;
 			floor0 = new PolygonT("floor",
 					new Polygon(new int[] { 0, 1980, 1980, 0 }, new int[] { 0, 0, 100, 100 }, 4));
 			floor1 = new PolygonT("floor",

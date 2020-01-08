@@ -7,6 +7,7 @@ import maths.Vector2D;
 import physics.main.Ball;
 import physics.main.Collision;
 import physics.main.PolygonMain;
+import physics.main.Thing;
 import physics.moveable.BallM;
 import physics.moveable.Moveable;
 
@@ -76,7 +77,7 @@ public class PolygonT extends Terrain implements PolygonMain {
 			for (double j = 0; j < length; j = j + stepSize) {
 
 				if (hittingThing.getPosition().distance(a) < hittingThing.getRadius()) {
-					if (goal)
+					if (goal&&((Thing)hittingThing).goalable)
 						Main.finished = true;
 					return new Collision(true, b.getSubtracted(a));
 				}

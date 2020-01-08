@@ -26,6 +26,8 @@ public class World {
 
 	public ArrayList<Item> items = new ArrayList<Item>();
 
+	public boolean showLine = false;
+
 	public World() {
 
 	}
@@ -159,11 +161,56 @@ public class World {
 
 	}
 
+	public boolean moveThing() {
+
+		Point p = MouseInfo.getPointerInfo().getLocation();
+
+		Vector2D mouse = new Vector2D(p.x, p.y - 30);
+		BallT test = new BallT("mouse", mouse, 15);
+
+		for (int i = 0; i < things.size(); i++) {
+			if (things.get(i) instanceof Fusion) {
+				Thing[] elements = ((Fusion) things.get(i)).getAllThing();
+				for (int j = 0; j < elements.length; j++) {
+					if (((Interaction) elements[j]).gethitByBall(test).hitted) {
+						if (things.get(i).deletable) {
+							mouseThing = things.get(i);
+							mouseThing.visable = false;
+							mouseThing.gravitation = 0;
+							return true;
+
+						}
+					}
+				}
+			} else if (((Interaction) things.get(i)).gethitByBall(test).hitted) {
+				if (things.get(i).deletable) {
+					mouseThing = things.get(i);
+					mouseThing.visable = false;
+					mouseThing.gravitation = 0;
+					return true;
+
+				}
+			}
+		}
+
+		return false;
+	}
+
+	public void clearLine() {
+		for (Thing obj : things) {
+			if (obj instanceof Moveable) {
+				((Moveable) obj).line.clear();
+			}
+		}
+	}
+
 	public void update() {
 
 		for (Thing obj : things) {
 			if (obj instanceof Moveable) {
 				((Moveable) obj).move(things);
+				if (showLine)
+					((Moveable) obj).line.add(obj.getPosition().clone());
 			}
 		}
 

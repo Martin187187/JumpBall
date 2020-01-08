@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.Toolkit;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
@@ -18,6 +19,7 @@ import physics.main.Ball;
 import physics.main.PolygonMain;
 import physics.main.Thing;
 import physics.moveable.BallM;
+import physics.moveable.Moveable;
 import physics.terrain.BallT;
 
 public class Renderer extends JPanel {
@@ -43,12 +45,18 @@ public class Renderer extends JPanel {
 
 		gr.setColor(Color.WHITE);
 		gr.fillRect(0, 0, screenSize.width, screenSize.height);
-		gr.setColor(Color.BLACK);
 
 
-		
 
 		for (Thing obj : world.things) {
+			if(obj instanceof Moveable&&world.showLine) {
+				gr.setColor(Color.RED);
+				ArrayList<Vector2D> line = ((Moveable)obj).line;
+				for(int i = 0; i < line.size()-1;i++) {
+					gr.drawLine((int)line.get(i).x, (int)line.get(i).y, (int)line.get(i+1).x, (int)line.get(i+1).y);
+				}
+				gr.setColor(Color.BLACK);
+			}
 			if (obj instanceof Fusion) {
 				Thing[] elements = ((Fusion) obj).getAllThing();
 				for (Thing a : elements) {

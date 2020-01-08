@@ -19,12 +19,14 @@ public class Main {
 	public static double rotation = 0;
 	public static boolean check = false;
 	public static int checkNumber = 0;
-	
+
 	public static boolean pause = true;
+	public static boolean editable = true;
 	
 	public static Level level;
 	public static int levelNumber = 0;
 	public static boolean finished = false;
+	
 
 	public static void main(String[] args) {
 
@@ -97,6 +99,7 @@ public class Main {
 		if(finished) {
 			finished = false;
 			pause = true;
+			editable = true;
 			
 			levelNumber++;
 			level.generateLevel(levelNumber);
@@ -114,15 +117,21 @@ public class Main {
 
 				
 				active = world.getItem();
+				if(!active) {
+					active = world.moveThing();
+				}
 			}  else if (checkNumber == 101) {
 				pause = !pause;
+				editable = false;
 			} else if (checkNumber == 102) {
 				pause = true;
+				editable = true;
 				
 				level.generateLevel(levelNumber);
 				world.addLevel(level,true, true);
 			} else if (checkNumber == 103) {
 				pause = true;
+				editable = true;
 				
 				level.generateLevel(levelNumber);
 				world.addLevel(level,true, false);
