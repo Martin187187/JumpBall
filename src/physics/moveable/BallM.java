@@ -16,15 +16,15 @@ public class BallM extends Moveable implements Ball {
 	private Vector2D position;
 	private double radius;
 
-	public BallM(String name, Vector2D position, Vector2D speed, double radius, int mass) {
-		super(name, speed, mass);
+	public BallM(String name, Vector2D position, Vector2D speed, double rotationspeed, double radius, int mass) {
+		super(name, speed,rotationspeed, mass);
 		this.position = position;
 		this.radius = radius;
 	}
 
 	@Override
 	public void move(ArrayList<Thing> things) {
-		position.add(saveSpeed);
+		position.add(speed);
 
 		boolean hit = false;
 		for (Thing obj : things) {
@@ -43,16 +43,16 @@ public class BallM extends Moveable implements Ball {
 
 		if(!hit)
 
-			saveSpeed.y = saveSpeed.y + gravitation;
-		saveSpeed.multiply(SPEEDLOOSE);
+			speed.y = speed.y + gravitation;
+		speed.multiply(SPEEDLOOSE);
 	}
 
 	private boolean doHit(Thing obj) {
 		Collision collision;
 		if ((collision = ((Interaction) obj).gethitByBall(this)).hitted) {
-			position.subtract(saveSpeed);
+			position.subtract(speed);
 			Vector2D u = collision.wall;
-			Vector2D v = saveSpeed;
+			Vector2D v = speed;
 
 			double alpha = Math.acos((u.dot(v)) / (u.getLength() * v.getLength()));
 
@@ -64,10 +64,10 @@ public class BallM extends Moveable implements Ball {
 				v.rotateBy(-alpha * 2);
 			}
 
-			if (saveSpeed.getLength() < 1)
-				saveSpeed = v.getMultiplied(BOUNCELOOSE);
+			if (speed.getLength() < 1)
+				speed = v.getMultiplied(BOUNCELOOSE);
 			else
-				saveSpeed = v.getMultiplied(BOUNCELOOSE2);
+				speed = v.getMultiplied(BOUNCELOOSE2);
 		}
 		return collision.hitted;
 	}
@@ -86,7 +86,7 @@ public class BallM extends Moveable implements Ball {
 
 	@Override
 	public BallM copy() {
-		BallM ball =new BallM(this.name, this.position, this.speed, this.radius, this.mass);
+		BallM ball =new BallM(this.name, this.position, this.speed, this.rotationspeed, this.radius, this.mass);
 		helpCopy(ball);
 		return ball;
 	}
@@ -100,8 +100,8 @@ public class BallM extends Moveable implements Ball {
 		if (hittingThing.getRadius() + radius > distance) {
 			
 			if(hittingThing instanceof Moveable) {
-				Vector2D v1 =((Moveable)hittingThing).saveSpeed;
-				Vector2D v2 = saveSpeed;
+				Vector2D v1 =((Moveable)hittingThing).speed;
+				Vector2D v2 = speed;
 				
 				
 				int m1 = ((Moveable)hittingThing).mass;
@@ -118,16 +118,17 @@ public class BallM extends Moveable implements Ball {
 				
 				
 			}
-			return new Collision(true, hittingThing.getPosition().getSubtracted(position).swap());
+			Vector2D direcction = hittingThing.getPosition().getSubtracted(position);
+			return new Collision(true, direcction.swap(),hittingThing.getPosition().getMultiplied(direcction.getLength()*radius));
 		} else {
-			return new Collision(false, null);
+			return new Collision(false, null, null);
 		}
 	}
 
 	@Override
 	public Collision gethitByPolygon(PolygonMain hittingThing) {
 		// TODO Auto-generated method stub
-		return null;
+		return new Collision(false, null, null);
 	}
 
 	@Override

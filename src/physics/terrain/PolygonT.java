@@ -3,6 +3,9 @@ package physics.terrain;
 import java.awt.Polygon;
 
 import engine.Main;
+import maths.Crosspoint;
+import maths.Line;
+import maths.Route;
 import maths.Vector2D;
 import physics.main.Ball;
 import physics.main.Collision;
@@ -54,8 +57,6 @@ public class PolygonT extends Terrain implements PolygonMain {
 	 */
 	public Collision gethitByBall(Ball hittingThing) {
 
-		
-
 		Vector2D a;
 		Vector2D b;
 
@@ -77,9 +78,9 @@ public class PolygonT extends Terrain implements PolygonMain {
 			for (double j = 0; j < length; j = j + stepSize) {
 
 				if (hittingThing.getPosition().distance(a) < hittingThing.getRadius()) {
-					if (goal&&((Thing)hittingThing).goalable)
+					if (goal && ((Thing) hittingThing).goalable)
 						Main.finished = true;
-					return new Collision(true, b.getSubtracted(a));
+					return new Collision(true, b.getSubtracted(a),a);
 				}
 				a = a.getAdded(size);
 				b = a.getAdded(size);
@@ -87,7 +88,7 @@ public class PolygonT extends Terrain implements PolygonMain {
 			}
 		}
 
-		return new Collision(false, null);
+		return new Collision(false, null, null);
 
 	}
 
@@ -95,8 +96,42 @@ public class PolygonT extends Terrain implements PolygonMain {
 	 * Polygon hits PolygonT
 	 */
 	public Collision gethitByPolygon(PolygonMain hittingThing) {
-		// TODO Auto-generated method stub
-		return null;
+
+		Vector2D a;
+		Vector2D b;
+
+		Vector2D k;
+		Vector2D m;
+
+
+		int size0 = polygon.npoints;
+		int size1 = hittingThing.getPolygon().npoints;
+
+		for (int i = 0; i < size0; i++) {
+			a = new Vector2D(polygon.xpoints[i % size0], polygon.ypoints[i % size0]);
+			b = new Vector2D(polygon.xpoints[(i + 1) % size0], polygon.ypoints[(i + 1) % size0]);
+
+			
+			Route first = new Route(a, b);
+
+			for (int j = 0; j < size1; j++) {
+				k = new Vector2D(hittingThing.getPolygon().xpoints[j % size1],
+						hittingThing.getPolygon().ypoints[j % size1]);
+				m = new Vector2D(hittingThing.getPolygon().xpoints[(j + 1) % size1],
+						hittingThing.getPolygon().ypoints[(j + 1) % size1]);
+
+				Route second = new Route(k, m);
+
+				Collision col = first.getCollision(second);
+
+				if (col.hitted) {
+					System.out.println("--");
+					return col;
+				}
+				
+			}
+		}
+		return new Collision(false, null, null);
 	}
 
 	@Override

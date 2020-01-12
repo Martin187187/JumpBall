@@ -7,17 +7,20 @@ import physics.main.Thing;
 import physics.main.Visable;
 
 public abstract class Moveable extends Visable implements MoveableInteraction{
-	
+
 	public Vector2D speed;
-	public Vector2D saveSpeed;
+	
+
+	public double rotationspeed;
 	protected int mass;
 
 	public ArrayList<Vector2D> line;
-	public Moveable(String name, Vector2D speed, int mass) {
+	public Moveable(String name, Vector2D speed, double rotationspeed,int mass) {
 		super(name);
 
-		this.saveSpeed = speed;
 		this.speed = speed;
+		
+		this.rotationspeed = 0;
 		this.mass = mass;
 		
 		this.line = new ArrayList<Vector2D>();

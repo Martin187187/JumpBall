@@ -49,9 +49,9 @@ public class Trampolin extends PolygonT{
 					if(i==0) {
 						
 						
-						return new Collision(false, null);
+						return new Collision(false, null, null);
 					}
-					return new Collision(true, b.getSubtracted(a));
+					return new Collision(true, b.getSubtracted(a),a);
 				}
 				a = a.getAdded(size);
 				b = a.getAdded(size);
@@ -59,7 +59,7 @@ public class Trampolin extends PolygonT{
 			}
 		}
 		
-		return new Collision(false, null);
+		return new Collision(false, null, null);
 	}
 
 	@Override

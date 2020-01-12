@@ -1,6 +1,9 @@
 package physics.main;
 
 import java.awt.Color;
+import java.awt.Polygon;
+
+import maths.Vector2D;
 
 public abstract class Thing implements InteractionMain{
 
@@ -58,4 +61,8 @@ public abstract class Thing implements InteractionMain{
 		thing.deletable = deletable;
 		thing.goal = goal;
 	}
+	
+	
+	
+	
 }

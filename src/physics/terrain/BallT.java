@@ -44,16 +44,17 @@ public class BallT extends Terrain implements Ball {
 		double distance = hittingThing.getPosition().distance(position);
 		
 		if (hittingThing.getRadius()+radius> distance) {
-			return new Collision(true, hittingThing.getPosition().getSubtracted(position).swap());
+			Vector2D direcction = hittingThing.getPosition().getSubtracted(position);
+			return new Collision(true, direcction.swap(),hittingThing.getPosition().getMultiplied(direcction.getLength()*radius));
 		} else {
-			return new Collision(false, null);
+			return new Collision(false, null, null);
 		}
 	}
 
 	@Override
 	public Collision gethitByPolygon(PolygonMain hittingThing) {
 		// TODO Auto-generated method stub
-		return null;
+		return new Collision(false, null, null);
 	}
 
 	@Override

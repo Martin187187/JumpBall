@@ -118,7 +118,7 @@ public class World {
 			things.add(wood);
 			additionalthings.add(wood);
 		} else if (index == 1) {
-			BallM ball = new BallM("Hero", new Vector2D(p.x, p.y), new Vector2D(0, 0), 50, 1);
+			BallM ball = new BallM("Hero", new Vector2D(p.x, p.y), new Vector2D(0, 0), 0, 50, 1);
 			ball.visable = false;
 			ball.gravitation = 0;
 			ball.backgroundLength = 0;
@@ -214,10 +214,5 @@ public class World {
 			}
 		}
 
-		for (Thing obj : things) {
-			if (obj instanceof Moveable) {
-				((Moveable) obj).speed = ((Moveable) obj).saveSpeed;
-			}
-		}
 	}
 }
